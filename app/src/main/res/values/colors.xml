@@ -1,0 +1,9 @@
+<resources>
+    <color name="ink">#191919</color><color name="paper">#F8F8F8</color>
+    <color name="primary">#191919</color><color name="on_primary">#FFFFFF</color>
+    <color name="surface">#F8F8F8</color><color name="on_surface">#191919</color>
+    <color name="surface_variant">#EAEAEA</color><color name="on_surface_variant">#606060</color>
+    <color name="outline">#777777</color><color name="outline_variant">#D2D2D2</color>
+    <color name="recorder_surface">#1C1C1C</color><color name="recorder_text">#F7F7F7</color>
+    <color name="recorder_muted">#B8B8B8</color><color name="error">#B3261E</color>
+</resources>

@@ -1,0 +1,16 @@
+.gradle/
+.tools/
+.android-sdk/
+.android/
+.signing/
+local.properties
+signing.properties
+**/build/
+dist/
+.impeccable/review/
+.test-data/
+*.log
+*.jks
+*.keystore
+.env*
+!.env.example

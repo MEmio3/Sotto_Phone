@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T19:02:30.452Z",
+  "title": "Design System: Sotto for Android",
+  "extensions": {
+    "platform": {
+      "name": "native-android",
+      "implementation": "Java Views, Material 3, InputMethodService",
+      "previewTranslation": "HTML/CSS snippets are self-contained light-theme visual proxies for the panel, not shipped Android components. dp/sp are shown at a nominal 1 CSS px per unit. Native Material resources remain authoritative for inherited sizes, ripples, focus, modal elevation and text scaling. Manrope uses host availability with sans-serif fallback in the panel."
+    },
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "Primary",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "on-primary": {
+        "role": "primary",
+        "displayName": "On Primary",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "on-surface": {
+        "role": "neutral",
+        "displayName": "On Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "surface-variant": {
+        "role": "neutral",
+        "displayName": "Surface Variant",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "on-surface-variant": {
+        "role": "neutral",
+        "displayName": "On Surface Variant",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "outline": {
+        "role": "neutral",
+        "displayName": "Outline",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "outline-variant": {
+        "role": "neutral",
+        "displayName": "Outline Variant",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "recorder-surface": {
+        "role": "neutral",
+        "displayName": "Recorder Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "recorder-text": {
+        "role": "primary",
+        "displayName": "Recorder Text",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "recorder-muted": {
+        "role": "neutral",
+        "displayName": "Recorder Muted",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "error": {
+        "role": "error",
+        "displayName": "Error",
+        "tonalRamp": [
+          "oklch(15% 0.12 27)",
+          "oklch(26% 0.12 27)",
+          "oklch(38% 0.12 27)",
+          "oklch(49% 0.12 27)",
+          "oklch(61% 0.12 27)",
+          "oklch(72% 0.12 27)",
+          "oklch(84% 0.12 27)",
+          "oklch(95% 0.12 27)"
+        ]
+      },
+      "dark-primary": {
+        "role": "primary",
+        "displayName": "Dark Primary",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-on-primary": {
+        "role": "primary",
+        "displayName": "Dark On Primary",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "Dark Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-on-surface": {
+        "role": "neutral",
+        "displayName": "Dark On Surface",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-surface-variant": {
+        "role": "neutral",
+        "displayName": "Dark Surface Variant",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-on-surface-variant": {
+        "role": "neutral",
+        "displayName": "Dark On Surface Variant",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-outline": {
+        "role": "neutral",
+        "displayName": "Dark Outline",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-outline-variant": {
+        "role": "neutral",
+        "displayName": "Dark Outline Variant",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(38% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(61% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "dark-error": {
+        "role": "error",
+        "displayName": "Dark Error",
+        "tonalRamp": [
+          "oklch(15% 0.12 27)",
+          "oklch(26% 0.12 27)",
+          "oklch(38% 0.12 27)",
+          "oklch(49% 0.12 27)",
+          "oklch(61% 0.12 27)",
+          "oklch(72% 0.12 27)",
+          "oklch(84% 0.12 27)",
+          "oklch(95% 0.12 27)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Editorial headline",
+        "purpose": "Custom native headline appearance, variable weight 650."
+      },
+      "wordmark": {
+        "displayName": "Sotto wordmark",
+        "purpose": "App bar brand lettering."
+      },
+      "title": {
+        "displayName": "Section title",
+        "purpose": "Native Material 3 TitleLarge sizing; semibold Manrope."
+      },
+      "body": {
+        "displayName": "Reading copy",
+        "purpose": "Supporting prose, dictation text and ordinary app copy."
+      },
+      "label": {
+        "displayName": "Control label",
+        "purpose": "Semibold actions and labels; native inherited appearances where not explicitly sized."
+      },
+      "caption": {
+        "displayName": "Supporting detail",
+        "purpose": "Native BodySmall sizing and secondary semantic text color."
+      },
+      "keyboard-letter": {
+        "displayName": "Keyboard letter",
+        "purpose": "QWERTY letter labels."
+      },
+      "keyboard-control": {
+        "displayName": "Keyboard control",
+        "purpose": "Compact tool and special-key labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "flat-custom-surfaces",
+        "value": "0dp",
+        "purpose": "Explicit card and navigation elevation. Native modal elevation is inherited, not a custom shadow token."
+      }
+    ],
+    "motion": [
+      {
+        "name": "waveform-refresh",
+        "value": "32ms",
+        "purpose": "Invalidation interval only while recording has active input; disabled when Android animator-duration scale is zero."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "expanded-navigation",
+        "value": "600dp"
+      }
+    ],
+    "themeMapping": {
+      "primary": "dark-primary",
+      "on-primary": "dark-on-primary",
+      "surface": "dark-surface",
+      "on-surface": "dark-on-surface",
+      "surface-variant": "dark-surface-variant",
+      "on-surface-variant": "dark-on-surface-variant",
+      "outline": "dark-outline",
+      "outline-variant": "dark-outline-variant",
+      "error": "dark-error"
+    },
+    "tonalRampProvenance": "Tonal ramps are synthesized neutral/red OKLCH preview metadata, not additional shipped Android colors.",
+    "evidence": [
+      "app/src/main/res/values/colors.xml",
+      "app/src/main/res/values-night/colors.xml",
+      "app/src/main/res/values/themes.xml",
+      "app/src/main/res/font/manrope.xml",
+      "app/src/main/java/studio/sotto/mobile/Ui.java",
+      "app/src/main/java/studio/sotto/mobile/MainActivity.java",
+      "app/src/main/java/studio/sotto/mobile/SottoKeyboard.java",
+      ".impeccable/review/phone-light.png",
+      ".impeccable/review/phone-dark.png",
+      ".impeccable/review/phone-landscape.png",
+      ".impeccable/review/keyboard-ready.png"
+    ]
+  },
+  "components": [
+    {
+      "name": "Filled action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Native Material filled capsule, translated for a light-theme panel preview.",
+      "html": "<button class=\"ds-button ds-filled\">Save connection</button>",
+      "css": ".ds-button{min-height:48px;border-radius:28px;padding:0 24px;font:600 14px Manrope,sans-serif;cursor:pointer}.ds-button:hover{filter:brightness(.94)}.ds-button:focus-visible{outline:2px solid #777777;outline-offset:3px}.ds-button:active{filter:brightness(.85)}.ds-button:disabled{opacity:.38;cursor:default}.ds-filled{background:#191919;color:#ffffff;border:0}"
+    },
+    {
+      "name": "Outlined action",
+      "kind": "button",
+      "refersTo": "button-outlined",
+      "description": "Secondary action or output-language capsule.",
+      "html": "<button class=\"ds-button ds-outlined\">Write in English · default</button>",
+      "css": ".ds-button{min-height:48px;border-radius:28px;padding:0 24px;font:600 14px Manrope,sans-serif;cursor:pointer}.ds-button:hover{filter:brightness(.94)}.ds-button:focus-visible{outline:2px solid #777777;outline-offset:3px}.ds-button:active{filter:brightness(.85)}.ds-button:disabled{opacity:.38;cursor:default}.ds-outlined{background:#F8F8F8;color:#191919;border:1px solid #777777}"
+    },
+    {
+      "name": "Outlined field",
+      "kind": "input",
+      "description": "Native floating-label field represented with literal panel styling.",
+      "html": "<label class=\"ds-field\"><span>Connection name</span><input value=\"My Gemini\" aria-label=\"Connection name\"/></label>",
+      "css": ".ds-field{display:block;position:relative;padding-top:7px;color:#606060;font:400 12px Manrope,sans-serif}.ds-field span{position:absolute;top:0;left:12px;background:#F8F8F8;padding:0 4px}.ds-field input{width:calc(100% - 34px);min-height:56px;background:#F8F8F8;color:#191919;border:1px solid #777777;border-radius:4px;padding:0 16px;font:400 16px Manrope,sans-serif}.ds-field input:hover{border-color:#191919}.ds-field input:focus-visible{outline:2px solid #191919;outline-offset:-2px}.ds-field input:active{border-color:#191919}"
+    },
+    {
+      "name": "Writing mode chips",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Single required selection; compact rows wrap as space permits.",
+      "html": "<div class=\"ds-chips\" role=\"group\" aria-label=\"Writing mode\"><button class=\"ds-chip\" aria-pressed=\"false\">Constructive</button><button class=\"ds-chip ds-selected\" aria-pressed=\"true\">Precise</button><button class=\"ds-chip\" aria-pressed=\"false\">Professional</button><button class=\"ds-chip\" aria-pressed=\"false\">Prompting</button><button class=\"ds-chip\" aria-pressed=\"false\">Casual</button></div>",
+      "css": ".ds-chips{display:flex;flex-wrap:wrap;gap:8px}.ds-chip{min-height:48px;padding:0 16px;border-radius:24px;border:1px solid #D2D2D2;background:#F8F8F8;color:#191919;font:600 14px Manrope,sans-serif;cursor:pointer}.ds-selected{background:#191919;color:#ffffff}.ds-chip:hover{filter:brightness(.94)}.ds-chip:focus-visible{outline:2px solid #777777;outline-offset:3px}.ds-chip:active{filter:brightness(.85)}"
+    },
+    {
+      "name": "Bottom navigation",
+      "kind": "nav",
+      "description": "Four labeled destinations with native tonal selection; expanded rail behavior remains native.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Sotto destinations\"><button class=\"ds-nav-item ds-current\" aria-current=\"page\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"2\" width=\"6\" height=\"13\" rx=\"3\"/><path d=\"M5 10v2c0 9 14 9 14 0v-2M12 19v4\"/></svg><span>Dictation</span></button><button class=\"ds-nav-item\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l4 2\"/></svg><span>History</span></button><button class=\"ds-nav-item\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><path d=\"M8 2v6M16 2v6M5 8h14v2c0 9-14 9-14 0ZM12 18v5\"/></svg><span>Connections</span></button><button class=\"ds-nav-item\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 1v3M12 20v3M1 12h3M20 12h3\"/></svg><span>Settings</span></button></nav>",
+      "css": ".ds-nav{display:flex;background:#F8F8F8;color:#606060}.ds-nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:64px;border:0;background:transparent;color:inherit;font:600 12px Manrope,sans-serif;cursor:pointer}.ds-nav-item svg{padding:4px 16px;border-radius:24px}.ds-current{color:#191919}.ds-current svg{background:#EAEAEA}.ds-nav-item:hover svg{background:#EAEAEA}.ds-nav-item:focus-visible{outline:2px solid #777777;outline-offset:-2px}.ds-nav-item:active{opacity:.65}"
+    },
+    {
+      "name": "Flat content card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Shared outline container for local history and connections.",
+      "html": "<article class=\"ds-card\" tabindex=\"0\"><p class=\"ds-card-title\">A thought, saved.</p><p class=\"ds-card-meta\">English · Precise</p></article>",
+      "css": ".ds-card{padding:20px;border:1px solid #D2D2D2;border-radius:20px;background:#F8F8F8;color:#191919;font:400 14px Manrope,sans-serif}.ds-card-title{margin:0 0 8px}.ds-card-meta{margin:0;color:#606060;font-size:12px}.ds-card:hover{border-color:#777777}.ds-card:focus-visible{outline:2px solid #777777;outline-offset:3px}.ds-card:active{background:#EAEAEA}"
+    },
+    {
+      "name": "Recorder",
+      "kind": "custom",
+      "refersTo": "recorder",
+      "description": "Stable charcoal instrument with a light microphone action.",
+      "html": "<section class=\"ds-recorder\"><div class=\"ds-wave\" aria-hidden=\"true\">•••••••••••••••••••••••••••••••••••••••</div><p class=\"ds-recorder-title\">A thought, out loud.</p><p class=\"ds-recorder-copy\">Tap to speak. Tap again to finish.</p><button class=\"ds-record\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"2\" width=\"6\" height=\"13\" rx=\"3\"/><path d=\"M5 10v2c0 9 14 9 14 0v-2M12 19v4\"/></svg><span>Start dictation</span></button></section>",
+      "css": ".ds-recorder{padding:20px;border-radius:20px;background:#1C1C1C;color:#F7F7F7;text-align:center;font-family:Manrope,sans-serif}.ds-wave{height:32px;overflow:hidden;letter-spacing:3px;color:#B8B8B8}.ds-recorder-title{font-size:22px;font-weight:600;margin:12px 0 8px}.ds-recorder-copy{font-size:14px;color:#B8B8B8;margin:0 0 16px}.ds-record{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:48px;border:0;border-radius:28px;background:#F7F7F7;color:#191919;font:600 14px Manrope,sans-serif;cursor:pointer}.ds-record:hover{filter:brightness(.94)}.ds-record:focus-visible{outline:2px solid #B8B8B8;outline-offset:3px}.ds-record:active{filter:brightness(.85)}"
+    },
+    {
+      "name": "Keyboard letter row",
+      "kind": "custom",
+      "refersTo": "keycap",
+      "description": "Weighted soft rectangular keys with clear gaps; app toolbar remains capsules.",
+      "html": "<div class=\"ds-key-row\" aria-label=\"Keyboard first row\"><button class=\"ds-key\" aria-label=\"Type q\">q</button><button class=\"ds-key\" aria-label=\"Type w\">w</button><button class=\"ds-key\" aria-label=\"Type e\">e</button><button class=\"ds-key\" aria-label=\"Type r\">r</button><button class=\"ds-key\" aria-label=\"Type t\">t</button><button class=\"ds-key\" aria-label=\"Type y\">y</button><button class=\"ds-key\" aria-label=\"Type u\">u</button><button class=\"ds-key\" aria-label=\"Type i\">i</button><button class=\"ds-key\" aria-label=\"Type o\">o</button><button class=\"ds-key\" aria-label=\"Type p\">p</button></div>",
+      "css": ".ds-key-row{display:flex;background:#F8F8F8;padding:4px}.ds-key{flex:1;min-width:0;height:48px;margin:2px;border:0;border-radius:8px;background:#EAEAEA;color:#191919;font:400 22px Manrope,sans-serif;cursor:pointer}.ds-key:hover{background:#D2D2D2}.ds-key:focus-visible{outline:2px solid #777777;outline-offset:1px}.ds-key:active{background:#D2D2D2}.ds-key:disabled{opacity:.35}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Sotto's Quiet Editorial Instrument",
+    "overview": "Sotto carries its desktop monochrome Manrope identity into a native Android tool. Clear sentences, generous page margins and a restrained type hierarchy make speaking feel direct and deliberate. Capsule actions and the dark recorder supply the recognizable silhouette.\n\nThe implementation is Java Views with Material 3 controls and an InputMethodService keyboard. Native navigation, system Back, scalable text and window insets are part of the design language. Layouts reflow and scroll in portrait, landscape and larger text; an editorial opening is never a reason to hide an action.",
+    "keyCharacteristics": [
+      "Monochrome semantic roles with a persistent dark recorder.",
+      "Manrope lettering with weight-led editorial hierarchy.",
+      "Capsule controls, flat outlined containers and soft rectangular keycaps.",
+      "Native Android navigation and explicit recording state."
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Inversion Rule",
+        "body": "Resolve ordinary surfaces and controls through Android light/dark resources. Keep the recorder's charcoal, light text and fixed ink action contrast stable.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Use Manrope across Sotto's own controls and editorial copy; retain platform fallback for multilingual text instead of forcing unsupported glyphs.",
+        "section": "typography"
+      },
+      {
+        "name": "The Native Reach Rule",
+        "body": "Preserve window insets, scalable text and native navigation. Primary app controls and key rows keep their observed touch dimensions; do not shrink them to force a fixed first viewport.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Use tonal fill and quiet outlines for ordinary grouping; do not add decorative shadows to the app's cards or navigation.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** preserve the monochrome Manrope identity through native Android components.",
+      "**Do** resolve theme-sensitive controls through semantic resource colors and preserve the recorder's stable contrast.",
+      "**Do** let mode chips wrap and content scroll at larger text sizes and constrained heights.",
+      "**Do** retain native focus, ripple, disabled states, content descriptions and system insets.",
+      "**Do** distinguish ordinary typing, recording, processing and insertion with explicit visible state."
+    ],
+    "donts": [
+      "**Don't** use the error color as an everyday brand accent.",
+      "**Don't** add decorative card shadows or replace stroke icons with text glyphs.",
+      "**Don't** copy the capsule silhouette onto individual QWERTY letter keys.",
+      "**Don't** turn operational recorder status into decorative uppercase section kickers.",
+      "**Don't** treat the external integration-test editor above the keyboard as Sotto interface design."
+    ]
+  }
+}
