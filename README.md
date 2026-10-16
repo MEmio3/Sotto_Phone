@@ -6,6 +6,8 @@ Dictate in Bangla, English, or mixed languages, choose a writing mode, and inser
 
 **Android 8.0+ · Native app · Five writing modes · Direct AI connections · Local history**
 
+One universal APK supports the declared Android 8.0+ range across phone brands, phones, tablets and foldables; there are no brand or CPU-specific builds. Sotto does not require Google Play Services. Its keyboard uses standard Android editable fields across apps. Protected fields, custom editors, device speech services and manufacturer background restrictions can impose limits. This is a compatibility target, not a claim that every device has been physically tested. Experimental Google/Antigravity access also depends on Google accepting the account and client.
+
 [Download the Android APK](https://github.com/MEmio3/Sotto_Phone/releases/latest) · [Source repository](https://github.com/MEmio3/Sotto_Phone)
 
 The mobile project lives in `E:\SottoApk`. The desktop app stays in `E:\Sotto`.
@@ -18,7 +20,7 @@ These are native Android emulator captures using a clearly labeled synthetic tes
 
 ## Install and start
 
-1. Download [Sotto-0.1.1-Android.apk](https://github.com/MEmio3/Sotto_Phone/releases/latest/download/Sotto-0.1.1-Android.apk), transfer it to your phone, and install it. Android may ask you to allow installation from the app opening the APK. Existing installations can update in place.
+1. Download [Sotto-0.1.2-Android.apk](https://github.com/MEmio3/Sotto_Phone/releases/latest/download/Sotto-0.1.2-Android.apk), transfer it to your phone, and install it. Android may ask you to allow installation from the app opening the APK. Existing installations can update in place.
 2. Open **Connections → Add API**. Add a Gemini API key or a compatible API connection. Get a Gemini key from [Google AI Studio](https://aistudio.google.com/apikey). Experimental Google sign-in is also available.
 3. Open **Models**, choose an available model, and tap **Use model**, then **Test**. Test verifies text generation; the first dictation checks audio support.
 4. In **Settings**, allow microphone access, enable **Sotto voice keyboard** in Android's keyboard settings, then select it.
@@ -72,11 +74,15 @@ Results recorded inside the main app have a **Copy text** action. Use the Sotto 
 
 **Connect Google** opens your system browser. The experimental connector uses desktop Sotto's community protocol and published installed-client configuration. It keeps the phone's OAuth session locally and needs no OmniRoute server or PC Antigravity session. **Models** fetches the account's live Flash catalog; access and quotas belong to the account.
 
+After browser consent, tap **Return to Sotto** on the confirmation page. Sotto finishes exchanging the code while its app is visible, then opens the model picker. The browser receiving a code is not a completed Sotto connection. The return link carries no authorization code or token.
+
 > **Use this unofficial connection at your own risk.** Google may reject the integration, stop access or restrict an account. API connections work independently.
 
 Mobile browser sign-in and real-account access still need physical-device verification. This compatibility OAuth flow currently lacks PKCE. Published client defaults do not establish Google's approval of third-party reuse. See [OAuth configuration](docs/OAUTH-CONFIGURATION.md).
 
-Version **0.1.1** fixes the Android connector's RPC URL separator and adds token-exchange recovery when Google's primary hostname cannot be resolved or connected to. Connection errors now identify token exchange, account setup or model discovery. If browser sign-in finishes but token exchange still fails, try Wi-Fi instead of mobile data (or the reverse), review Android Private DNS/VPN settings and Sotto's network access, then tap **Connect Google** again. HTTP rejection or a read timeout does not replay the sign-in code.
+Version **0.1.2** waits for the app to return from the browser before exchanging the sign-in code. Android background-data restrictions reproduced the same `UnknownHostException` shown in a reported DNS error; that does not establish the affected phone's settings or exact cause. This update also includes 0.1.1's corrected Google RPC URLs, Google-only token endpoint fallback and stage-specific errors. HTTP rejection or a read timeout does not replay the sign-in code.
+
+If connection still fails, open **Connections → Check Google connection → Copy details**. The optional check reports device/Android version, network type, Data Saver, Private DNS state, VPN transport and reachability of Google's two token endpoints. It sends deliberately incomplete requests without account credentials; **HTTP 400** in this check means the server was reached, not that sign-in or model access succeeded. The report stays on screen unless you copy it. Try another network or review the reported app/network restrictions, then start a fresh **Connect Google** attempt.
 
 ## Privacy and recovery
 
@@ -99,7 +105,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-apk.ps1
 The helper uses a configured Android SDK, or downloads a project-local SDK from Google if needed. It runs unit tests and creates:
 
 ```text
-dist/Sotto-0.1.1-Android.apk
+dist/Sotto-0.1.2-Android.apk
 dist/SHA256SUMS.txt
 ```
 

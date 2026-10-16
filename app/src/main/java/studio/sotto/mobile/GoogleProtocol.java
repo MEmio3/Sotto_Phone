@@ -66,7 +66,7 @@ final class GoogleProtocol {
     private static Exception failure(String step,Exception error,boolean token,boolean refresh){
         if(error instanceof CancellationException)return error;
         String retry=token?(refresh?"Reconnect this account if it continues.":"Tap Connect Google again after changing networks."):"Try Find models again, or use an API connection.";
-        if(error instanceof UnknownHostException)return new Exception(step+" failed because Android could not resolve Google's servers. Try Wi-Fi/mobile data or review Android Private DNS. "+retry,error);
+        if(error instanceof UnknownHostException)return new Exception(step+" could not resolve Google's servers. Use Check Google connection to inspect app network access, Data Saver and Private DNS. "+retry,error);
         if(error instanceof ConnectException||error instanceof NoRouteToHostException)return new Exception(step+" could not connect to Google's servers. Check this app's network access or try another network. "+retry,error);
         if(error instanceof SocketTimeoutException)return new Exception(step+" timed out. "+retry,error);
         if(error instanceof SSLException)return new Exception(step+" could not establish a secure connection to Google. Check the phone's date/time and any VPN or HTTPS filtering. "+retry,error);

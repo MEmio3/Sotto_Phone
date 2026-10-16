@@ -50,7 +50,7 @@ import java.util.*;
  */
 public final class MainActivity extends AppCompatActivity implements AppState.Listener {
     private AppState app;private LinearLayout root;private FrameLayout pageHost;private NavigationBarView navigation;private Ui.Wave waveform;private TextView recordingStatus;private long lastSecond=-1;
-    private int page=1;private String draft="",query="";private MediaPlayer player;
+    private int page=1;private String draft="",query="";private MediaPlayer player;private boolean checkingGoogle;
     private final ActivityResultLauncher<String> microphone=registerForActivityResult(new ActivityResultContracts.RequestPermission(),granted->{if(granted)message("Microphone access is ready.");else message("Microphone access was denied. Enable it in Android app settings to dictate.");if(app!=null)renderPage();});
     private final ActivityResultLauncher<String> export=registerForActivityResult(new ActivityResultContracts.CreateDocument("application/json"),uri->{if(uri==null||app==null)return;run(()->{try(OutputStream out=getContentResolver().openOutputStream(uri)){out.write(app.store.history().toString(2).getBytes(StandardCharsets.UTF_8));}message("History exported.");});});
     @Override protected void onCreate(Bundle state){super.onCreate(state);if(state!=null){page=state.getInt("page",1);draft=state.getString("draft","");query=state.getString("query","");}int requested=getIntent().getIntExtra("page",page);if(requested>=1&&requested<=4)page=requested;
@@ -73,6 +73,9 @@ public final class MainActivity extends AppCompatActivity implements AppState.Li
         getOnBackPressedDispatcher().addCallback(this,new OnBackPressedCallback(true){@Override public void handleOnBackPressed(){if(page!=1)navigate(1);else{setEnabled(false);getOnBackPressedDispatcher().onBackPressed();}}});
     }
     @Override protected void onStart(){super.onStart();if(app!=null){app.add(this);renderPage();}}
+    @Override protected void onResume(){super.onResume();((SottoApplication)getApplication()).signInForeground.visible(true);if("studio.sotto.mobile".equals(getIntent().getScheme())){getIntent().setData(null);navigate(3);}}
+    @Override protected void onPause(){((SottoApplication)getApplication()).signInForeground.visible(false);super.onPause();}
+    @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);if("studio.sotto.mobile".equals(intent.getScheme())){intent.setData(null);navigate(3);}}
     @Override protected void onStop(){if(app!=null){app.remove(this);if(!isChangingConfigurations()&&app.owner.equals("app")&&app.recording())app.cancel();}stopAudio();super.onStop();}
     @Override protected void onSaveInstanceState(Bundle out){out.putInt("page",page);out.putString("draft",draft);out.putString("query",query);super.onSaveInstanceState(out);}
     @Override public void changed(){if(!isFinishing()&&root!=null){if(getCurrentFocus() instanceof EditText&&!app.owner.equals("app"))return;renderPage();}}
@@ -136,6 +139,21 @@ public final class MainActivity extends AppCompatActivity implements AppState.Li
         Ui.space(parent,12);Ui.add(parent,Ui.text(this,"Prefer signing in?","title"),8);Ui.add(parent,Ui.text(this,"Google / Antigravity · Experimental","label"),8);Ui.add(parent,Ui.text(this,"Sign in through your browser and choose from your account’s available Flash models. No Antigravity installation is required.","body"),12);Ui.add(parent,Ui.text(this,"Unofficial integration. Use it at your own risk; Google may reject access or restrict an account. An API connection works independently.","caption"),16);
         MaterialButton google=action(app.stage.equals("signing-in")?"Connecting Google…":"Connect Google",null,true,()->app.connectGoogle(new AppState.Completion<JSONObject>(){public void done(JSONObject c){navigate(3);run(()->modelPicker(c));}public void failed(String error){message(error);}}));google.setEnabled(!app.busy());Ui.add(parent,google,8);if(app.stage.equals("signing-in"))Ui.add(parent,action("Cancel sign-in",null,true,()->app.cancel()),12);
         if((app.stage.equals("signing-in")||app.stage.equals("error"))&&!app.message.isEmpty()){TextView note=Ui.text(this,app.message,"body");note.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);if(app.stage.equals("error"))note.setTextColor(Ui.color(this,R.color.error));Ui.add(parent,note,16);}
+        MaterialButton checkGoogle=action(checkingGoogle?"Checking Google…":"Check Google connection",null,true,()->{
+            if(checkingGoogle)return;checkingGoogle=true;renderPage();
+            message("Checking Google's public token servers…");
+            app.background(()->GoogleNetworkDiagnostics.run(getApplicationContext()),new AppState.Completion<String>(){
+                public void done(String report){
+                    if(isFinishing()||isDestroyed())return;
+                    checkingGoogle=false;renderPage();
+                    new MaterialAlertDialogBuilder(MainActivity.this).setTitle("Google connection check")
+                        .setMessage(report).setPositiveButton("Close",null)
+                        .setNeutralButton("Copy details",(dialog,which)->copy(report)).show();
+                }
+                public void failed(String error){if(isFinishing()||isDestroyed())return;checkingGoogle=false;renderPage();message(error);}
+            });
+        });
+        checkGoogle.setEnabled(!app.busy()&&!checkingGoogle);Ui.add(parent,checkGoogle,8);
         Ui.space(parent,16);Ui.add(parent,Ui.text(this,"Keys and login tokens are encrypted on this phone. Your selected provider receives the audio or transcript needed for each dictation.","caption"),0);
     }
     private TextInputLayout field(LinearLayout parent,String label,String value,boolean password){TextInputLayout layout=new TextInputLayout(this);layout.setBoxBackgroundMode(TextInputLayout.BOX_BACKGROUND_OUTLINE);layout.setHint(label);TextInputEditText edit=new TextInputEditText(layout.getContext());edit.setFontVariationSettings("'wght' 400");edit.setText(value);edit.setSingleLine(true);edit.setMinHeight(Ui.dp(this,56));edit.setInputType(password?InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD:InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);if(password){edit.setTransformationMethod(PasswordTransformationMethod.getInstance());layout.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);}layout.addView(edit,new LinearLayout.LayoutParams(-1,-2));Ui.add(parent,layout,16);return layout;}

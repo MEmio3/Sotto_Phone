@@ -26,6 +26,6 @@ Copy-Item -Path (Join-Path $staging 'cmdline-tools\*') -Destination $destination
 $manager = Join-Path $destination 'bin\sdkmanager.bat'
 1..12 | ForEach-Object { 'y' } | & $manager --sdk_root=$sdkRoot 'platform-tools' 'platforms;android-36' 'build-tools;36.0.0'
 if ($LASTEXITCODE -ne 0) { throw 'Android SDK setup failed.' }
-$local = 'sdk.dir=' + $sdkRoot.Replace('\','/')
+$local = 'sdk.dir=' + $sdkRoot.Replace('\','/').Replace(':','\:')
 [IO.File]::WriteAllText((Join-Path $projectRoot 'local.properties'), $local + "`n")
 Write-Output 'Android SDK is ready for Sotto.'

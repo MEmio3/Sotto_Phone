@@ -1,0 +1,4 @@
+<resources>
+    <style name="TextAppearance.Sotto.Wordmark" parent="TextAppearance.Material3.TitleLarge"><item name="android:fontFamily">@font/manrope</item><item name="android:textSize">26sp</item><item name="android:textStyle">bold</item><item name="android:fontVariationSettings">"'wght' 700"</item></style>
+    <style name="TextAppearance.Sotto.Navigation" parent="TextAppearance.Material3.LabelMedium"><item name="android:fontFamily">@font/manrope</item><item name="android:fontVariationSettings">"'wght' 600"</item></style>
+</resources>

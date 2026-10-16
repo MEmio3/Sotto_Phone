@@ -8,6 +8,7 @@ try {
     if (!(Test-Path -LiteralPath $adb) -and $env:ANDROID_HOME) { $adb=Join-Path $env:ANDROID_HOME 'platform-tools\adb.exe' }
     $boot=& $adb -s $Serial shell getprop sys.boot_completed
     if ($boot.Trim() -ne '1') { throw 'Wait for the disposable emulator to finish booting before running tests.' }
+    New-Item -ItemType Directory -Path '.tools' -Force | Out-Null
     & '.\gradlew.bat' :app:testDebugUnitTest :app:assembleDebug :app:assembleDebugAndroidTest --console=plain | Out-File -LiteralPath '.tools\native-build.log' -Encoding utf8
     if ($LASTEXITCODE -ne 0) { throw 'The test APK could not be built. See .tools/native-build.log.' }
     & $adb -s $Serial install -r 'app\build\outputs\apk\debug\app-debug.apk'

@@ -9,6 +9,9 @@ import java.util.*;
 import java.util.concurrent.CancellationException;
 
 public class ApiClient {
+    private final int connectTimeout,readTimeout;
+    public ApiClient(){this(20000,90000);}
+    public ApiClient(int connectTimeout,int readTimeout){this.connectTimeout=connectTimeout;this.readTimeout=readTimeout;}
     public static final class HttpFailure extends IOException {
         public final int status;public final String oauthError;
         public HttpFailure(int status,String oauthError){super(httpError(status));this.status=status;this.oauthError=oauthError;}
@@ -24,7 +27,7 @@ public class ApiClient {
     }
     public JSONObject request(String url,String method,Map<String,String> headers,byte[] body,String type,Cancellation cancel) throws Exception {
         if(cancel!=null)cancel.check();HttpURLConnection connection=(HttpURLConnection)new URL(url).openConnection();
-        connection.setInstanceFollowRedirects(false);connection.setConnectTimeout(20000);connection.setReadTimeout(90000);connection.setRequestMethod(method);
+        connection.setInstanceFollowRedirects(false);connection.setConnectTimeout(connectTimeout);connection.setReadTimeout(readTimeout);connection.setRequestMethod(method);
         if(cancel!=null){cancel.active=connection;cancel.check();}
         try{
             for(Map.Entry<String,String> header:headers.entrySet())connection.setRequestProperty(header.getKey(),header.getValue());

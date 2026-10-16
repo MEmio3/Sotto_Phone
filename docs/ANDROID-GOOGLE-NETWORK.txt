@@ -1,0 +1,56 @@
+Normal app UID; no instrumentation runner or account credentials.
+
+FOREGROUND
+Sotto Google connection check
+Google sdk_gphone64_x86_64 · Android 15
+Internet permission: allowed
+App visible: yes
+Active network: mobile data
+VPN transport: false
+Private DNS: inactive
+Metered: true
+Data Saver: off
+
+oauth2.googleapis.com: reached Google (HTTP 400). No login data was sent.
+
+www.googleapis.com: reached Google (HTTP 400). No login data was sent.
+
+This check sends no account credentials. A Google error response confirms reachability, not account access.
+
+DATA SAVER BACKGROUND
+Sotto Google connection check
+Google sdk_gphone64_x86_64 · Android 15
+Internet permission: allowed
+App visible: no
+Active network: none
+VPN transport: false
+Private DNS: unavailable
+Metered: true
+Data Saver: background data restricted
+
+oauth2.googleapis.com: UnknownHostException: Unable to resolve host "oauth2.googleapis.com": No address associated with hostname / GaiException: android_getaddrinfo failed: EAI_NODATA (No address associated with hostname)
+
+www.googleapis.com: UnknownHostException: Unable to resolve host "www.googleapis.com": No address associated with hostname / GaiException: android_getaddrinfo failed: EAI_NODATA (No address associated with hostname)
+
+This check sends no account credentials. A Google error response confirms reachability, not account access.
+
+HANDOFF
+Token work waited for Return to Sotto: true
+Sotto Google connection check
+Google sdk_gphone64_x86_64 · Android 15
+Internet permission: allowed
+App visible: yes
+Active network: mobile data
+VPN transport: false
+Private DNS: inactive
+Metered: true
+Data Saver: background data restricted
+
+oauth2.googleapis.com: reached Google (HTTP 400). No login data was sent.
+
+www.googleapis.com: reached Google (HTTP 400). No login data was sent.
+
+This check sends no account credentials. A Google error response confirms reachability, not account access.
+
+completed: true
+

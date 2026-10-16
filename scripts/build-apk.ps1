@@ -4,7 +4,7 @@ Push-Location $projectRoot
 try {
     if (!(Test-Path -LiteralPath 'local.properties')) {
         if ($env:ANDROID_HOME -and (Test-Path -LiteralPath $env:ANDROID_HOME)) {
-            [IO.File]::WriteAllText((Join-Path $projectRoot 'local.properties'), 'sdk.dir=' + $env:ANDROID_HOME.Replace('\','/') + "`n")
+            [IO.File]::WriteAllText((Join-Path $projectRoot 'local.properties'), 'sdk.dir=' + $env:ANDROID_HOME.Replace('\','/').Replace(':','\:') + "`n")
         } else { & (Join-Path $PSScriptRoot 'setup-android.ps1') }
     }
     node (Join-Path $PSScriptRoot 'prepare-signing.cjs')

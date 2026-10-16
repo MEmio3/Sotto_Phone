@@ -62,7 +62,7 @@ public final class SottoKeyboard extends InputMethodService implements AppState.
     @Override public void changed(){refresh();}@Override public void level(float value){if(status!=null&&app!=null&&app.recording()){long seconds=Math.max(0,(System.currentTimeMillis()-app.startedAt)/1000);status.setText("Listening · "+String.format(Locale.ROOT,"%02d:%02d",seconds/60,seconds%60)+" · "+(app.store.language().isEmpty()?"English":app.store.language()));}}
     private void notice(String value){if(status!=null){status.setText(value);status.setVisibility(View.VISIBLE);status.announceForAccessibility(value);}}
     private void run(AppState.Task action){try{action.run();}catch(Exception error){notice(AppState.safeError(error));}}
-    private void switchKeyboard(){if(Build.VERSION.SDK_INT>=28){if(!switchToPreviousInputMethod())switchToNextInputMethod(false);}else switchToNextInputMethod(false);}
+    private void switchKeyboard(){if(Build.VERSION.SDK_INT>=28){if(!switchToPreviousInputMethod())switchToNextInputMethod(false);}else ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE)).showInputMethodPicker();}
     private void openApp(){requestHideSelf(0);startActivity(new Intent(this,MainActivity.class).putExtra("page",4).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP));}
     public static boolean isPassword(int inputType){int type=inputType&InputType.TYPE_MASK_CLASS,variation=inputType&InputType.TYPE_MASK_VARIATION;return type==InputType.TYPE_CLASS_NUMBER&&variation==InputType.TYPE_NUMBER_VARIATION_PASSWORD||type==InputType.TYPE_CLASS_TEXT&&(variation==InputType.TYPE_TEXT_VARIATION_PASSWORD||variation==InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD||variation==InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);}
 }

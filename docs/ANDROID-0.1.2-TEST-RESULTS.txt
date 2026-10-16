@@ -1,0 +1,107 @@
+INSTRUMENTATION_STATUS: stream=Checking: Core pipelines
+
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=Checking: External voice keyboard
+
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=Checking: Typing, suggestions and reversible autocorrect
+
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=Checking: Editor focus protection
+
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=Checking: Password field protection
+
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: stream=Checking: Native appearance and scaling
+
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_RESULT: stream={
+  "androidKeystore": true,
+  "fiveModesAndPersistence": true,
+  "languageOverride": true,
+  "phone-light.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "connections.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "settings.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "keyboard-settings.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "keyboardSettingsAndCustomMapping": true,
+  "keyboard-ready.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "keyboard-suggestions.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "normalTypingAndSuggestions": true,
+  "autocorrectUndoAndIndependentToggles": true,
+  "externalKeyboardAudioAndUnicodeInsertion": true,
+  "voiceShortcutDoesNotTypeLetters": true,
+  "neverSubmitsMessage": true,
+  "keyboard-inserted.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1
+  },
+  "focusGuard": true,
+  "passwordProtection": true,
+  "phone-dark.png": {
+    "width": 720,
+    "height": 1280,
+    "night": true,
+    "fontScale": 1
+  },
+  "phone-large-text.png": {
+    "width": 720,
+    "height": 1280,
+    "night": false,
+    "fontScale": 1.2999999523162842
+  },
+  "phone-landscape.png": {
+    "width": 1280,
+    "height": 720,
+    "night": false,
+    "fontScale": 1
+  },
+  "model-picker-landscape.png": {
+    "width": 1280,
+    "height": 720,
+    "night": false,
+    "fontScale": 1
+  },
+  "keyboard-landscape.png": {
+    "width": 1280,
+    "height": 720,
+    "night": false,
+    "fontScale": 1
+  },
+  "nativeScreenCaptures": true,
+  "ok": true
+}
+
+INSTRUMENTATION_CODE: -1

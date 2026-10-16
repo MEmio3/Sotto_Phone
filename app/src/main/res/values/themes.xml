@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.Sotto" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.Sotto.Base" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item><item name="colorOnPrimary">@color/on_primary</item>
         <item name="colorPrimaryContainer">@color/surface_variant</item><item name="colorOnPrimaryContainer">@color/on_surface</item>
         <item name="colorSecondary">@color/primary</item><item name="colorOnSecondary">@color/on_primary</item>
@@ -10,13 +10,14 @@
         <item name="colorOutline">@color/outline</item><item name="colorOutlineVariant">@color/outline_variant</item>
         <item name="colorError">@color/error</item><item name="android:colorBackground">@color/surface</item>
         <item name="android:fontFamily">@font/manrope</item><item name="fontFamily">@font/manrope</item>
-        <item name="android:windowLightStatusBar">true</item><item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Sotto.Headline</item>
         <item name="textAppearanceBodyMedium">@style/TextAppearance.Sotto.Body</item>
     </style>
+    <style name="Theme.Sotto" parent="Theme.Sotto.Base" />
     <style name="TextAppearance.Sotto.Headline" parent="TextAppearance.Material3.HeadlineMedium"><item name="fontFamily">@font/manrope</item><item name="android:fontFamily">@font/manrope</item><item name="android:textSize">30sp</item><item name="android:textStyle">bold</item></style>
     <style name="TextAppearance.Sotto.Body" parent="TextAppearance.Material3.BodyMedium"><item name="android:textSize">14sp</item><item name="fontFamily">@font/manrope</item></style>
-    <style name="TextAppearance.Sotto.Wordmark" parent="TextAppearance.Material3.TitleLarge"><item name="android:fontFamily">@font/manrope</item><item name="android:textSize">26sp</item><item name="android:textStyle">bold</item><item name="android:fontVariationSettings">"'wght' 700"</item></style>
-    <style name="TextAppearance.Sotto.Navigation" parent="TextAppearance.Material3.LabelMedium"><item name="android:fontFamily">@font/manrope</item><item name="android:fontVariationSettings">"'wght' 600"</item></style>
+    <style name="TextAppearance.Sotto.Wordmark" parent="TextAppearance.Material3.TitleLarge"><item name="android:fontFamily">@font/manrope</item><item name="android:textSize">26sp</item><item name="android:textStyle">bold</item></style>
+    <style name="TextAppearance.Sotto.Navigation" parent="TextAppearance.Material3.LabelMedium"><item name="android:fontFamily">@font/manrope</item></style>
 </resources>

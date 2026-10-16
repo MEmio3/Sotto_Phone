@@ -1,6 +1,20 @@
 # Android verification
 
-The **0.1.0 baseline** was verified on **17 October 2026**, using a disposable Android 15 / API 35 x86_64 emulator. No personal phone, desktop credentials or real account session was used. The app targets API 36 and supports Android 8.0 / API 26 and later. The 0.1.1 connection regression checks are recorded below; baseline native results are not claimed as a fresh emulator run of this update.
+The **0.1.0 baseline** was verified on **17 October 2026**, using a disposable Android 15 / API 35 x86_64 emulator. No personal phone, desktop credentials or real account session was used. The app targets API 36 and declares Android 8.0 / API 26 and later. Update checks are recorded separately below.
+
+## 0.1.2 browser return and Android compatibility
+
+The report concerns two physical phones: Nothing Phone 3a completed browser consent before failing in Sotto; Samsung S24 Ultra showed a token-exchange DNS error. Their exact Android/network settings have not been inspected. A browser receiving an authorization code does not prove successful token exchange or model access.
+
+Using the app's **normal UID without an instrumentation runner**, public HTTPS requests to both Google token hosts returned **400** with deliberately incomplete data while Sotto was visible. After enabling Data Saver on metered emulator mobile data and putting a separate app in front, both failed with **UnknownHostException / EAI_NODATA**. In a fresh process, the new foreground gate waited without making those requests while the other app was in front. Opening `studio.sotto.mobile://signin` resumed Sotto; both endpoints returned **400** while Data Saver remained enabled. This demonstrates the reproduced mechanism and handoff recovery, not the physical phones' cause or a successful real-account login.
+
+The full normal-UID report is [ANDROID-GOOGLE-NETWORK.txt](ANDROID-GOOGLE-NETWORK.txt). Early instrumentation experiments are excluded as proof of background policy: Android's runner kept the process in foreground importance. The committed test instead uses a **debug-only**, credential-free service and reads its private report with `run-as`. The release APK must contain neither that service nor its manifest entry.
+
+Run `scripts/test-google-network.ps1 -Serial emulator-5562` on a disposable emulator with working mobile data. It builds/install debug fixtures, temporarily changes Data Saver/Wi-Fi, checks foreground → restricted background → return handoff, then disables Data Saver and re-enables Wi-Fi. It rejects physical-device serials. No authorization code, API key, access token or refresh token is used.
+
+The JVM suite now has **31 passing tests**, including foreground blocking, cancellation/timeout and another browser switch. Compatibility fixes guard the older keyboard-switch path and move newer navigation-bar/font attributes into API-qualified resources. Windows SDK paths are escaped correctly in generated properties. The universal Java APK has no CPU or brand filter and no Google Play Services dependency. This does not establish compatibility with every manufacturer/editor or Android versions below 8.0. Physical-device/account retry remains required.
+
+Full **`:app:lintRelease` passed with zero errors** (23 non-blocking warnings remain). The native integration suite was rerun after the compatibility changes and passed: five modes, encrypted storage, normal keyboard typing, suggestions/autocorrect and undo, mapped output languages, automatic Bangla/English insertion into a separate app UID, no automatic submission, editor/password guards, light/dark appearance, font scaling and landscape. The fresh report is [ANDROID-0.1.2-TEST-RESULTS.txt](ANDROID-0.1.2-TEST-RESULTS.txt). This run used 720 × 1280 portrait and 1280 × 720 landscape; the earlier expanded-layout captures remain baseline evidence.
 
 ## 0.1.1 Google connection regression checks
 
