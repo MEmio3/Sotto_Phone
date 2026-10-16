@@ -16,12 +16,13 @@ import java.util.*;
 
 /** Community protocol parity with desktop Sotto, not an official Google SDK. */
 public final class GoogleAccount {
-    private static final String BOOTSTRAP="https://cloudcode-pa.googleapis.com/v1internal/", CONTENT="https://daily-cloudcode-pa.googleapis.com/v1internal/";
-    private final Store store; private final Context context; private final ApiClient api; private final JSONObject client;
+    private final Store store; private final Context context; private final ApiClient api; private final JSONObject client;private final GoogleProtocol protocol;
     private volatile ServerSocket loginServer;
-    public GoogleAccount(Context context,Store store,ApiClient api)throws Exception{this.context=context.getApplicationContext();this.store=store;this.api=api;client=new JSONObject(new String(Store.bytes(context.getAssets().open("public-google-client.json"),10000),StandardCharsets.UTF_8));}
+    public GoogleAccount(Context context,Store store,ApiClient api)throws Exception{this.context=context.getApplicationContext();this.store=store;this.api=api;protocol=new GoogleProtocol(api);client=new JSONObject(new String(Store.bytes(context.getAssets().open("public-google-client.json"),10000),StandardCharsets.UTF_8));}
     public void cancelLogin(){ServerSocket server=loginServer;if(server!=null)try{server.close();}catch(Exception ignored){}}
-    public JSONObject login(ApiClient.Cancellation cancel)throws Exception{
+    public interface Progress {void update(String message);}
+    public JSONObject login(ApiClient.Cancellation cancel)throws Exception{return login(cancel,message->{});}
+    public JSONObject login(ApiClient.Cancellation cancel,Progress progress)throws Exception{
         byte[] random=new byte[32];new SecureRandom().nextBytes(random);String state=java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(random);
         String redirect="http://127.0.0.1:20128/callback",code=null;
         try(ServerSocket server=new ServerSocket()){
@@ -44,8 +45,8 @@ public final class GoogleAccount {
         catch(BindException e){throw new Exception("The local sign-in port is busy. Close the app using it and try again.");}
         catch(SocketException e){throw new Exception("Google sign-in cancelled, or the browser could not be opened.");}
         finally{loginServer=null;}
-        cancel.check();Map<String,String> form=new LinkedHashMap<>();form.put("grant_type","authorization_code");form.put("client_id",client.getString("clientId"));form.put("client_secret",client.getString("clientSecret"));form.put("code",code);form.put("redirect_uri",redirect);
-        JSONObject tokens=api.request("https://oauth2.googleapis.com/token","POST",Collections.emptyMap(),ApiClient.form(form).getBytes(StandardCharsets.UTF_8),"application/x-www-form-urlencoded",cancel);
+        cancel.check();progress.update("Google sign-in received. Connecting securely to Google's token server…");Map<String,String> form=new LinkedHashMap<>();form.put("grant_type","authorization_code");form.put("client_id",client.getString("clientId"));form.put("client_secret",client.getString("clientSecret"));form.put("code",code);form.put("redirect_uri",redirect);
+        JSONObject tokens=protocol.tokens(form,cancel);
         if(tokens.optString("access_token").isEmpty())throw new Exception("Google did not return an access token.");
         JSONObject secret=new JSONObject().put("accessToken",tokens.getString("access_token")).put("refreshToken",tokens.optString("refresh_token")).put("expiresAt",System.currentTimeMillis()+tokens.optLong("expires_in",3600)*1000).put("projectId","");
         String email="Google account";try{email=api.json("https://www.googleapis.com/oauth2/v1/userinfo?alt=json","GET",ApiClient.key("compatible",secret.getString("accessToken")),null,cancel).optString("email",email);}catch(Exception ignored){}
@@ -57,14 +58,12 @@ public final class GoogleAccount {
         if(!secret.optString("accessToken").isEmpty()&&secret.optLong("expiresAt")>System.currentTimeMillis()+60000)return;
         if(secret.optString("refreshToken").isEmpty())throw new Exception("Reconnect this Google account in Connections.");
         Map<String,String> form=new LinkedHashMap<>();form.put("grant_type","refresh_token");form.put("client_id",client.getString("clientId"));form.put("client_secret",client.getString("clientSecret"));form.put("refresh_token",secret.getString("refreshToken"));
-        JSONObject data=api.request("https://oauth2.googleapis.com/token","POST",Collections.emptyMap(),ApiClient.form(form).getBytes(StandardCharsets.UTF_8),"application/x-www-form-urlencoded",cancel);
+        JSONObject data=protocol.tokens(form,cancel);
         if(data.optString("access_token").isEmpty())throw new Exception("Google could not refresh this session. Reconnect your account.");secret.put("accessToken",data.getString("access_token")).put("expiresAt",System.currentTimeMillis()+data.optLong("expires_in",3600)*1000);
         if(!data.optString("refresh_token").isEmpty())secret.put("refreshToken",data.getString("refresh_token"));store.saveSecret(id,secret);
     }
     private JSONObject post(String action,JSONObject secret,JSONObject body,ApiClient.Cancellation cancel)throws Exception{
-        boolean bootstrap=action.equals("loadCodeAssist")||action.equals("onboardUser");Map<String,String> headers=new HashMap<>();headers.put("Authorization","Bearer "+secret.getString("accessToken"));
-        headers.put("User-Agent",bootstrap?"antigravity/2.5.5 darwin/arm64 google-api-nodejs-client/10.3.0":"antigravity/ide/2.5.5 darwin/arm64");if(bootstrap)headers.put("X-Goog-Api-Client","gl-node/22.21.1");
-        try{return api.json((bootstrap?BOOTSTRAP:CONTENT)+action,"POST",headers,body,cancel);}catch(Exception e){if(e.getMessage()!=null&&e.getMessage().startsWith("The provider rejected"))throw new Exception("Google rejected "+(bootstrap?"account setup":action.equals("fetchAvailableModels")?"model discovery":"this dictation")+". Reconnect or choose a different available model.");throw e;}
+        return protocol.post(action,secret.getString("accessToken"),body,cancel);
     }
     private void discover(JSONObject secret,ApiClient.Cancellation cancel)throws Exception{
         String project=DictationRules.projectId(secret.opt("projectId"));secret.put("projectId",project);if(!project.isEmpty())return;

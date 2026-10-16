@@ -1,6 +1,18 @@
 # Android verification
 
-Verified on **17 October 2026**, using a disposable Android 15 / API 35 x86_64 emulator. No personal phone, desktop credentials or real account session was used. The app targets API 36 and supports Android 8.0 / API 26 and later.
+The **0.1.0 baseline** was verified on **17 October 2026**, using a disposable Android 15 / API 35 x86_64 emulator. No personal phone, desktop credentials or real account session was used. The app targets API 36 and supports Android 8.0 / API 26 and later. The 0.1.1 connection regression checks are recorded below; baseline native results are not claimed as a fresh emulator run of this update.
+
+## 0.1.1 Google connection regression checks
+
+The reported screen showed the generic error produced by Android `UnknownHostException` after browser consent. The phone's resolver/ISP state cannot be inspected from that screenshot. Separately, the Android port constructed incorrect Google RPC paths (`/v1internal/action`). Those paths were reproduced against Google: the wrong path returned **404**, while the correct `/v1internal:loadCodeAssist` path returned **401 UNAUTHENTICATED** without a token. This demonstrates valid routing, not account access.
+
+Public probes with deliberately invalid authorization data reached both Google token hostnames and received **400 invalid_request**. No private credentials or real authorization code was used.
+
+New regression tests cover exact RPC paths/headers, DNS failure after consent, fallback restricted to Google HTTPS hosts, unchanged token grants, refresh recovery, safe errors, OAuth rejection, cancellation, discovery fallback, and prevention of retries after TLS/read-timeout/permission/quota errors. An actual loopback HTTP test checks that OAuth error descriptions cannot leak private data into displayed errors. Original writing-mode/keyboard/provider tests remain in the suite.
+
+**All 28 JVM tests passed**, instrumentation test compilation passed, and the 0.1.1 signed release build and release lint checks passed.
+
+This update is signed with the existing release key and increments Android versionCode to **2**, so it can update 0.1.0 in place. Actual Google login on the affected physical phone still needs a retry with this APK; no successful real-account login is claimed by the mock or unauthenticated probes.
 
 ## Build and automated checks
 

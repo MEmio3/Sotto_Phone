@@ -18,7 +18,7 @@ These are native Android emulator captures using a clearly labeled synthetic tes
 
 ## Install and start
 
-1. Download [Sotto-0.1.0-Android.apk](https://github.com/MEmio3/Sotto_Phone/releases/latest/download/Sotto-0.1.0-Android.apk), transfer it to your phone, and install it. Android may ask you to allow installation from the app opening the APK.
+1. Download [Sotto-0.1.1-Android.apk](https://github.com/MEmio3/Sotto_Phone/releases/latest/download/Sotto-0.1.1-Android.apk), transfer it to your phone, and install it. Android may ask you to allow installation from the app opening the APK. Existing installations can update in place.
 2. Open **Connections → Add API**. Add a Gemini API key or a compatible API connection. Get a Gemini key from [Google AI Studio](https://aistudio.google.com/apikey). Experimental Google sign-in is also available.
 3. Open **Models**, choose an available model, and tap **Use model**, then **Test**. Test verifies text generation; the first dictation checks audio support.
 4. In **Settings**, allow microphone access, enable **Sotto voice keyboard** in Android's keyboard settings, then select it.
@@ -76,6 +76,8 @@ Results recorded inside the main app have a **Copy text** action. Use the Sotto 
 
 Mobile browser sign-in and real-account access still need physical-device verification. This compatibility OAuth flow currently lacks PKCE. Published client defaults do not establish Google's approval of third-party reuse. See [OAuth configuration](docs/OAUTH-CONFIGURATION.md).
 
+Version **0.1.1** fixes the Android connector's RPC URL separator and adds token-exchange recovery when Google's primary hostname cannot be resolved or connected to. Connection errors now identify token exchange, account setup or model discovery. If browser sign-in finishes but token exchange still fails, try Wi-Fi instead of mobile data (or the reverse), review Android Private DNS/VPN settings and Sotto's network access, then tap **Connect Google** again. HTTP rejection or a read timeout does not replay the sign-in code.
+
 ## Privacy and recovery
 
 API keys and login tokens are encrypted with **Android Keystore** and AES-GCM. History and retained recordings live in app-private storage. Android app backup is disabled. No Sotto server receives your data and no analytics SDK is included.
@@ -97,7 +99,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-apk.ps1
 The helper uses a configured Android SDK, or downloads a project-local SDK from Google if needed. It runs unit tests and creates:
 
 ```text
-dist/Sotto-0.1.0-Android.apk
+dist/Sotto-0.1.1-Android.apk
 dist/SHA256SUMS.txt
 ```
 

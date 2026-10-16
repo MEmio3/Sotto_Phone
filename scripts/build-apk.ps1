@@ -12,8 +12,12 @@ try {
     & '.\gradlew.bat' :app:testDebugUnitTest :app:assembleRelease --console=plain
     if ($LASTEXITCODE -ne 0) { throw 'Android build or tests failed.' }
     New-Item -ItemType Directory -Path 'dist' -Force | Out-Null
-    Copy-Item -LiteralPath 'app\build\outputs\apk\release\app-release.apk' -Destination 'dist\Sotto-0.1.0-Android.apk' -Force
-    $hash=(Get-FileHash -LiteralPath 'dist\Sotto-0.1.0-Android.apk' -Algorithm SHA256).Hash.ToLowerInvariant()
-    [IO.File]::WriteAllText((Join-Path $projectRoot 'dist\SHA256SUMS.txt'), $hash + "  Sotto-0.1.0-Android.apk`n")
-    Write-Output 'APK ready: dist\Sotto-0.1.0-Android.apk'
+    $appVersion=[regex]::Match([IO.File]::ReadAllText((Join-Path $projectRoot 'app\build.gradle')),"versionName '([0-9]+\.[0-9]+\.[0-9]+)'").Groups[1].Value
+    if(!$appVersion){throw 'Could not read the Android app version.'}
+    $apkName="Sotto-$appVersion-Android.apk"
+    $apkPath=Join-Path $projectRoot "dist\$apkName"
+    Copy-Item -LiteralPath 'app\build\outputs\apk\release\app-release.apk' -Destination $apkPath -Force
+    $hash=(Get-FileHash -LiteralPath $apkPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    [IO.File]::WriteAllText((Join-Path $projectRoot 'dist\SHA256SUMS.txt'), $hash + "  $apkName`n")
+    Write-Output "APK ready: dist\$apkName"
 } finally { Pop-Location }

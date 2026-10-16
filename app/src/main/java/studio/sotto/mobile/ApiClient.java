@@ -9,6 +9,10 @@ import java.util.*;
 import java.util.concurrent.CancellationException;
 
 public class ApiClient {
+    public static final class HttpFailure extends IOException {
+        public final int status;public final String oauthError;
+        public HttpFailure(int status,String oauthError){super(httpError(status));this.status=status;this.oauthError=oauthError;}
+    }
     public static final class Cancellation {
         private volatile boolean cancelled; private volatile HttpURLConnection active;
         public void cancel(){cancelled=true;HttpURLConnection connection=active;if(connection!=null)connection.disconnect();}
@@ -25,7 +29,7 @@ public class ApiClient {
         try{
             for(Map.Entry<String,String> header:headers.entrySet())connection.setRequestProperty(header.getKey(),header.getValue());
             if(body!=null){connection.setDoOutput(true);connection.setRequestProperty("Content-Type",type);connection.setFixedLengthStreamingMode(body.length);try(OutputStream out=connection.getOutputStream()){out.write(body);}}
-            int status=connection.getResponseCode();if(status<200||status>=300)throw new Exception(httpError(status));
+            int status=connection.getResponseCode();if(status<200||status>=300){String oauthError="";try{InputStream error=connection.getErrorStream();if(error!=null){String code=new JSONObject(new String(Store.bytes(error,8192),StandardCharsets.UTF_8)).optString("error","");if(Arrays.asList("invalid_grant","invalid_client","unauthorized_client","redirect_uri_mismatch","access_denied","invalid_request").contains(code))oauthError=code;}}catch(Exception ignored){}throw new HttpFailure(status,oauthError);}
             String text=new String(Store.bytes(connection.getInputStream(),2000000),StandardCharsets.UTF_8);
             if(cancel!=null)cancel.check();try{return new JSONObject(text);}catch(Exception e){throw new Exception("The provider returned an invalid response. Retry or choose a different model.");}
         }finally{connection.disconnect();if(cancel!=null)cancel.active=null;}
